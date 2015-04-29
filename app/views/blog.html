@@ -1,0 +1,27 @@
+<ion-view view-title="Show Blog">
+
+  <ion-content>
+
+	<div class="row">
+		<div class="col col-75"></div>
+		<div class="col">
+			<button class="button button-icon ion-edit edit" ng-click="goToEditOnClick()"></button>        
+		</div>
+	</div>
+
+    <div class="item item-avatar">
+        <img ng-src="images/drink.jpg">
+        <h2>{{ blog.author }}</h2>
+        <p>{{ blog.updatedAt | date:'longDate' }}</p>
+    </div>
+    <div class="blog-preview">
+        <h1 class="show-title">{{ blog.title }}</h1>   
+        <h4 class="subheading">This article will cover off the 7 best ways to ensure your business is a success.</h4> 
+        <img class="cover-image" ng-src="images/drink.jpg">
+        <p>{{ blog.content }}</p>
+    </div>
+
+
+
+  </ion-content>
+</ion-view>

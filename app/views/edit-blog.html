@@ -1,0 +1,58 @@
+<ion-view view-title="Edit">
+
+  <ion-content>
+
+
+	<div class="row">
+		<div class="col col-75"></div>
+		<div class="col">
+			<button class="button button-clear button-balanced publish" ng-click="create()">Publish Changes</button>        
+		</div>
+	</div>
+
+
+  
+    <div>
+        <ion-list>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Blog Title</span>
+                <input ng-model="blog.title" type="text" placeholder="Blog Title">
+            </label>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Author</span>
+                <input ng-model="blog.author" type="text" placeholder="Author Name">
+            </label>            
+
+            <div class="list card">
+
+              <div class="item">
+                <p>Blog Cover Image</p>
+              </div>
+
+              <div class="item item-body">
+                <img class="full-image" ng-src="http://fillmurray.com/g/200/80">
+              </div>
+
+              <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                  <i class="icon ion-android-camera"></i>
+                  Take Photo
+                </a>
+                <a class="tab-item" href="#">
+                  <i class="icon ion-android-image"></i>
+                  Camera Roll
+                </a>
+              </div>
+
+            </div>
+
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Blog Content</span>
+                <input ng-model="blog.content" type="text" placeholder="Blog Content">
+            </label>
+        </ion-list>
+    </div>
+  </ion-content>
+</ion-view>
