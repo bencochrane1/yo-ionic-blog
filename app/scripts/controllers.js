@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 
-.controller('AppCtrl', ['$scope', 'Blog', '$state', '$stateParams', '$ionicModal', '$timeout', function ($scope, $state, $stateParams, Blog, $ionicModal, $timeout) {
+.controller('AppCtrl', function ($scope, $state, $stateParams, Blog, $ionicModal, $timeout) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -32,7 +32,7 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
-}])
+})
 
 
 .controller('BlogController', ['$scope','Blog', '$location', function ($scope, Blog){
@@ -49,20 +49,20 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('BlogListController',['$scope','Blog', function ($scope, Blog){
+.controller('BlogListController', function ($scope, Blog){
 
     Blog.getAll().success( function (data){
         $scope.blogs = data.results;
     });  
 
-    $scope.onBlogDelete = function (blog){
-        Blog.delete(blog.objectId);
+    $scope.delete = function (blog){
+        // Blog.delete(blog.objectId);
         $scope.blogs.splice($scope.blogs.indexOf(blog),1);
     }
 
-}])
+})
 
-.controller('BlogCreationController',['$scope','Blog','$state',function ($scope, Blog, $state){
+.controller('BlogCreationController', function ($scope, Blog, $state){
 
     $scope.blog = {};
 
@@ -79,31 +79,40 @@ angular.module('starter.controllers', [])
             $state.go('app.blogs');
         });
     }
-}])
+})
 
-.controller('BlogEditController',['$scope','Blog','$state','$stateParams',function ($scope, Blog, $state, $stateParams){
+.controller('BlogEditController', function ($scope, Blog, $state, $stateParams, $log){
 
-    $scope.blog = {
-        id:         $stateParams.id,
-        content:    $stateParams.content,
-        author:     $stateParams.author,
-        coverImage: $stateParams.coverImage,
-        title:      $stateParams.title        
-    };
+
+    Blog.get($stateParams.id).success( function (data) {
+      $scope.blog = data;
+      console.log(data);
+    }).error( function (err) {
+      $log.error(err);
+    })
 
     $scope.edit = function () {
-        Blog.edit($scope.blog.id,{
+      alert('editing')
+        Blog.edit($scope.blog.objectId,{
             content:    $scope.blog.content,
             author:     $scope.author,
             coverImage: $scope.coverImage,
             title:      $scope.title
         })
         .success(function(data){
+          alert('it saved');
             $state.go('app.blogs');
         });
     }
 
-}]);
+    $scope.delete = function (){
+        Blog.delete($scope.blog.objectId).success( function () {
+          $state.go('app.blogs');
+        })
+        // $scope.blogs.splice($scope.blogs.indexOf(blog),1);
+    }    
+
+});
 
 
 

@@ -27,7 +27,7 @@ angular.module('starter.services',[])
                 }
             });
         },
-        edit:function(id, data){
+        edit: function (id, data){
             return $http.put('https://api.parse.com/1/classes/Blog/'+id,data,{
                 headers:{
                     'X-Parse-Application-Id': PARSE_CREDENTIALS.APP_ID,
