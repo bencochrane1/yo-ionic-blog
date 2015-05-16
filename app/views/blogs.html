@@ -1,5 +1,20 @@
 <ion-view view-title="Blogs" cache-view="false">
-  <ion-content>
+
+    <ion-nav-title>
+        <i  class="icon ion-icecream title title-icon"></i>
+    </ion-nav-title>
+
+  <ion-nav-bar class="bar-balanced">
+    <ion-nav-buttons side="right">
+      <button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon ion-compose" ng-click="showNewBlogModal()"></button>        
+    </ion-nav-buttons>
+  </ion-nav-bar>    
+
+
+    <ion-content>
     <div ng-repeat="blog in blogs | orderBy: '-createdAt' ">
         <div class="item item-avatar">
             <img ng-src="http://fillmurray.com/g/80/80">
@@ -13,7 +28,7 @@
             </a>    
         </div>
     </div>
-  </ion-content>
+    </ion-content>
 </ion-view>
 
 

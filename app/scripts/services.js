@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module('starter.services',[])
 
 .factory('Blog',['$http','PARSE_CREDENTIALS',function ($http, PARSE_CREDENTIALS){

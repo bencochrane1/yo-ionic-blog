@@ -1,3 +1,5 @@
+"use strict";
+
 angular.module('starter.controllers', [])
 
 
@@ -49,16 +51,69 @@ angular.module('starter.controllers', [])
 
 }])
 
-.controller('BlogListController', function ($scope, Blog){
+.controller('BlogListController', function ($scope, Blog, $state, $ionicModal, $ionicPopup){
 
-    Blog.getAll().success( function (data){
-        $scope.blogs = data.results;
-    });  
+    $scope.getAllBlogs = function() {
+      Blog.getAll().success( function (data){
+          $scope.blogs = data.results;
+      });
+    } 
 
-    $scope.delete = function (blog){
-        // Blog.delete(blog.objectId);
-        $scope.blogs.splice($scope.blogs.indexOf(blog),1);
+    $scope.getAllBlogs();
+
+    $scope.blog = {};
+
+    $ionicModal.fromTemplateUrl('templates/create-blog-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up',
+    }).then(function(modal) {
+      $scope.modal = modal;
+    })
+
+    $scope.closeNewBlogModal = function() {
+      $scope.modal.hide();
     }
+
+    $scope.showNewBlogModal = function() {
+      $scope.modal.show();
+    }
+
+    $scope.createNewBlog = function() {
+      $scope.create();
+      $scope.getAllBlogs();
+      $scope.modal.hide();
+
+    }    
+
+
+    $scope.confirmNewBlog = function() {
+     var confirmPopup = $ionicPopup.confirm({
+       title: 'Ready to publish your story?',
+     });
+     confirmPopup.then(function(res) {
+       if(res) {
+         $scope.createNewBlog();
+       } else {
+         $scope.closeNewBlogModal();
+       }
+     });
+    };  
+
+    $scope.create = function () {
+        Blog.create({
+            content:    $scope.blog.content,
+            author:     $scope.blog.author,
+            coverImage: $scope.blog.coverImage,
+            title:      $scope.blog.title
+
+        }).success(function(data){
+            $scope.blog.content = '';
+            $scope.blog.title = '';
+            $scope.blog.author = '';
+            $state.go('app.blogs');
+        });
+    }      
+
 
 })
 
@@ -86,21 +141,17 @@ angular.module('starter.controllers', [])
 
     Blog.get($stateParams.id).success( function (data) {
       $scope.blog = data;
-      console.log(data);
     }).error( function (err) {
       $log.error(err);
     })
 
     $scope.edit = function () {
-      alert('editing')
         Blog.edit($scope.blog.objectId,{
             content:    $scope.blog.content,
-            author:     $scope.author,
-            coverImage: $scope.coverImage,
-            title:      $scope.title
+            author:     $scope.blog.author,
+            title:      $scope.blog.title
         })
         .success(function(data){
-          alert('it saved');
             $state.go('app.blogs');
         });
     }
@@ -110,9 +161,6 @@ angular.module('starter.controllers', [])
           $state.go('app.blogs');
         })
         // $scope.blogs.splice($scope.blogs.indexOf(blog),1);
-    }    
+    }
 
 });
-
-
-

@@ -1,13 +1,15 @@
+"use strict";
+
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform, $state, $rootScope) {
   $ionicPlatform.ready(function() {
-    
+
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
-    
+
       StatusBar.styleDefault();
     }
   });
@@ -24,7 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   .state('app.blogs', {
-    url: "/blogs",
+    url: '/blogs',
     views: {
       'menuContent': {
         controller: 'BlogListController',

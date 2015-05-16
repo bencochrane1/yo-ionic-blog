@@ -1,17 +1,21 @@
+<ion-modal-view>
+  <ion-nav-bar view-title="Create a new blog">
+<!--     <h1 class="title">Create a New Blog</h1>
+    <div class="buttons">
+      <button class="button button-icon ion-close" ng-click="closeNewBlogModal()"></button>
+    </div> -->
 
-<ion-view view-title="Edit">
+    <ion-nav-buttons side="right">
+      <button class="button button-icon ion-close" ng-click="closeNewBlogModal()"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon ion-checkmark" ng-click="confirmNewBlog()"></button>        
+    </ion-nav-buttons>
 
-  <ion-content>
 
-  	<div class="row">
-  		<!-- <div class="col col-75"></div> -->
-  		<div class="col">
-  			<button class="button button-clear button-balanced publish" ng-click="edit()">Update Blog</button>       
-      <div class="col">
-        <button class="button button-clear button-assertive publish" ng-click="delete()">Delete Blog</button>        
-      </div>         
-  		</div>
-  	</div>
+  </ion-nav-bar>
+
+<ion-content>
   
     <div>
         <ion-list>
@@ -51,9 +55,9 @@
 
             <label class="item item-input item-floating-label">
                 <span class="input-label">Blog Content</span>
-                <input ng-model="blog.content" type="text" placeholder="Blog Content">
+                <textarea ng-model="blog.content" type="text" placeholder="Blog Content"></textarea>
             </label>
         </ion-list>
     </div>
   </ion-content>
-</ion-view>
+</ion-modal-view>
